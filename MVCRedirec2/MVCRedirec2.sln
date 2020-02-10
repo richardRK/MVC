@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCRedirec2", "MVCRedirec2\MVCRedirec2.csproj", "{569C5A5B-3212-43F0-ACD2-D5C34500342A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{569C5A5B-3212-43F0-ACD2-D5C34500342A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{569C5A5B-3212-43F0-ACD2-D5C34500342A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{569C5A5B-3212-43F0-ACD2-D5C34500342A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{569C5A5B-3212-43F0-ACD2-D5C34500342A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EEE414D-9FE1-480A-9BA2-214FCF5829AD}
+	EndGlobalSection
+EndGlobal
