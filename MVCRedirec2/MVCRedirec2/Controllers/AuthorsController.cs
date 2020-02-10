@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVCRedirec2.Models;
+using MVCRedirec2.ViewModels;
 
 namespace MVCRedirec2.Controllers
 {
@@ -16,19 +16,19 @@ namespace MVCRedirec2.Controllers
         private Pluto_QueriesEntities db = new Pluto_QueriesEntities();
 
         // GET: Authors
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Authors.ToListAsync());
+            return View(db.Authors.ToList());
         }
 
         // GET: Authors/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = await db.Authors.FindAsync(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -37,9 +37,43 @@ namespace MVCRedirec2.Controllers
         }
 
         // GET: Authors/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            return RedirectToAction("Login");
+        }
+
+
+        [HttpGet]
+        public ActionResult Create1()
+        {
             return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserDto usr)
+        {
+            RedirectToRouteResult rtrr = null;
+            if (ModelState.IsValid)
+            {
+                var result = db.Users.Where(ele => ele.Email == usr.Email).FirstOrDefault();
+                if (result != null)
+                {
+                    rtrr =  RedirectToAction("Index");
+                }
+                else
+                {
+                    rtrr = RedirectToAction("Create1");
+                }
+            }
+            return rtrr;
         }
 
         // POST: Authors/Create
@@ -47,12 +81,12 @@ namespace MVCRedirec2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Author author)
+        public ActionResult Create([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
                 db.Authors.Add(author);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +94,13 @@ namespace MVCRedirec2.Controllers
         }
 
         // GET: Authors/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = await db.Authors.FindAsync(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -79,25 +113,25 @@ namespace MVCRedirec2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] Author author)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(author).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(author);
         }
 
         // GET: Authors/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = await db.Authors.FindAsync(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -108,11 +142,11 @@ namespace MVCRedirec2.Controllers
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Author author = await db.Authors.FindAsync(id);
+            Author author = db.Authors.Find(id);
             db.Authors.Remove(author);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -30,5 +30,6 @@ namespace MVCRedirec2.Models
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<Cover> Covers { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
